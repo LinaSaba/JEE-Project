@@ -5,7 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-    <form action="#" th:action="@{/msg}" th:object="${newLogin}" method="post">
+<p>Login Page</p>
+
+    <form action="#" th:action="@{/login}" th:object="${newLogin}" method="post">
         <div>
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" th:field="*{username}">
@@ -16,5 +18,8 @@
         </div>
         <button type="submit">Login</button>
     </form>
+
+    <p th:text="${connexionState}"></p>
+
 </body>
 </html>
