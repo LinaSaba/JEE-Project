@@ -1,13 +1,16 @@
 package articles.services;
 
 import articles.models.Trip;
-import articles.repository.TripCrUD;
+import articles.data.TripCrUD;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class TripService {
+
     @Autowired
     private TripCrUD repository;
 

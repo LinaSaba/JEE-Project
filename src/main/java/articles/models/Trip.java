@@ -19,8 +19,8 @@ public class Trip {
     @Column(name = "time", nullable = false)
     private String time;
 
-    @ManyToMany(mappedBy = "trips")
-    private List<User> users = new ArrayList<User>();
+/*    @ManyToMany(mappedBy = "trips")
+    private List<User> users = new ArrayList<User>();*/
 
     // --------------- Constructors -------------- //
     public Trip() {
@@ -32,7 +32,7 @@ public class Trip {
         this.cityA = cityA;
         this.cityB = cityB;
         this.time = time;
-        this.users = new ArrayList<>();
+        //this.users = new ArrayList<>();
     }
 
     // -------------- To String -------------- //
@@ -57,10 +57,10 @@ public class Trip {
     }
     public void setTime(String time) {
         this.time = time;
-    }
+    }/*
     public void setUsers(List<User> users) {
         this.users = users;
-    }
+    }*/
     // --------------- Getters -------------- //
     public long getTripNb() {
         return tripNb;
@@ -73,8 +73,8 @@ public class Trip {
     }
     public String getTime() {
         return time;
-    }
+    }/*
     public List<User> getUsers() {
         return users;
-    }
+    }*/
 }

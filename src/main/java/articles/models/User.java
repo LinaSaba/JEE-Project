@@ -6,13 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="Participant")
+@Table(name="user")
 public class User {
     @Id
-    @GeneratedValue(generator = "incerement")
+    @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "login")
-    private String login;
+    @Column(name = "id")
+    private int id;
+    @Column(name = "username")
+    private String username;
+    @Column(name = "password")
+    private String password;
     @Column(name = "prenom", nullable = false)
     private String prenom;
     @Column(name = "email", nullable = false)
@@ -21,14 +25,22 @@ public class User {
     private String dream_destination;
     @Column(name = "admin", nullable = false)
     private boolean admin;
-
+/*
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Trip> trips = new ArrayList<>();
+    private List<Trip> trips = new ArrayList<>();*/
 
     public User() {
+        this.username = "username";
+        this.password = "password";
+        this.prenom = "prenom";
+        this.email = "email";
+        this.dream_destination = "dream_destination";
+        this.admin = true;
     }
-    public User(String login, String prenom, String email, String dream_destination, boolean admin) {
-        this.login = login;
+
+    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin) {
+        this.username = username;
+        this.password = password;
         this.prenom = prenom;
         this.email = email;
         this.dream_destination = dream_destination;
@@ -39,7 +51,8 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "login=" + login +
+                "login=" + username +
+                ",password=" + password +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", dream_destination='" + dream_destination + '\'' +
@@ -48,9 +61,14 @@ public class User {
     }
 
     // --------------- Setters -------------- //
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
     public void setPrenom(String prenom) {
         this.prenom = prenom;
@@ -65,11 +83,17 @@ public class User {
         this.admin = admin;
     }
     // --------------- Getters -------------- //
+    public int getId() {
+        return id;
+    }
     public String getPrenom() {
         return prenom;
     }
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
+    }
+    public String getPassword() {
+        return password;
     }
     public String getEmail() {
         return email;
