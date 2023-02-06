@@ -1,6 +1,8 @@
 package articles.controllers;
 
+import articles.models.Trip;
 import articles.models.User;
+import articles.services.TripService;
 import articles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,13 +23,14 @@ public class LoginController {
     public List allUsers = new ArrayList();
 
     @Autowired
-    private UserService userDAO;
+    UserService userDAO;
 
     @GetMapping("/login")
     public String showLoginPage(Model model){
         model.addAttribute("connexionState", connexionState);
-        model.addAttribute("newLogin", new User());
-        userDAO.save(new User());
+        User userTest = new User("username", "password", "prenom", "email", "dream_destination", true);
+        model.addAttribute("newLogin", userTest);
+        userDAO.save(userTest);
 
         return "login";
     }

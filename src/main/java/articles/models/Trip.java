@@ -5,13 +5,13 @@ import javax.persistence.*;
 import java.util.*;
 
 @Entity
-@Table(name="Trip")
+@Table(name="trip")
 public class Trip {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "tripNb")
-    private long tripNb;
+    @Column(name = "id")
+    private long id;
     @Column(name = "cityA", nullable = false)
     private String cityA;
     @Column(name = "cityB", nullable = false)
@@ -27,8 +27,7 @@ public class Trip {
     }
 
 
-    public Trip(long tripNb, String cityA, String cityB, String time) {
-        this.tripNb = tripNb;
+    public Trip(String cityA, String cityB, String time) {
         this.cityA = cityA;
         this.cityB = cityB;
         this.time = time;
@@ -39,15 +38,15 @@ public class Trip {
     @Override
     public String toString() {
         return "Trip{" +
-                "tripNb=" + tripNb +
+                "tripNb=" + id +
                 ", cityA='" + cityA + '\'' +
                 ", cityB='" + cityB + '\'' +
                 ", time='" + time + '\'' +
                 '}';
     }
     // --------------- Setters -------------- //
-    public void setTripNb(long tripNb) {
-        this.tripNb = tripNb;
+    public void setId(long id) {
+        this.id = id;
     }
     public void setCityA(String cityA) {
         this.cityA = cityA;
@@ -62,8 +61,8 @@ public class Trip {
         this.users = users;
     }*/
     // --------------- Getters -------------- //
-    public long getTripNb() {
-        return tripNb;
+    public long getId() {
+        return id;
     }
     public String getCityA() {
         return cityA;
