@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Trip page</title>
+
+</head>
+
+
+<a th:href="@{/addtrip}" class = "linkBtnAdmin">Add a trip?</span></a>
+
+<a th:href="@{/addtrip}" class = "linkBtnAdmin">Add a user?</span></a>
+
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+        <tr>
+            <th> CityA </th>
+            <th> CityB </th>
+            <th> Time </th>
+            <th> Delete</th>
+            <th> Update</th>
+            <th> Registered passengers </th>
+            <th> List of passengers </th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:if="${trips.empty}">
+            <td colspan="2"> No Trips for the moment </td>
+        </tr>
+        <tr th:each="trip : ${trips}">
+            <td><span th:text="${trip.CityA}"> CityA </span></td>
+            <td><span th:text="${trip.CityA}"> CityA </span></td>
+            <td><span th:text="${trip.time}"> Time </span></td>
+
+            <td>
+                <a th:href="@{delete/__${trip.id}__}" class="btn btn-danger">Delete</a>
+            </td>
+
+            <td>
+                <a th:href="@{/updateTrip/{id}(id=${trip.id})}" class="btn btn-info">Update</a>
+            </td>
+
+        </tr>
+
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

@@ -17,12 +17,6 @@ public class TripController {
         model.addAttribute("trips",tripService.findAll());
         return "trip";
     }
-
-    @GetMapping("/trip/{id}")
-    public String getMyTrip(@PathVariable("id") int id, Model model) {
-        model.addAttribute("trip",tripService.findById((long)id).get());
-        return "trip_description";
-    }
     @GetMapping("/addtrip")
     public String addTrip(Model model){
         Trip trip = new Trip();
