@@ -1,7 +1,7 @@
 package articles.services;
 
 import articles.models.User;
-import articles.data.UserCrUD;
+import articles.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserService {
 
     @Autowired
-    private UserCrUD repository;
+    private UserRepository repository;
 
     public List<User> findAll() {
         List<User> users = (List<User>) repository.findAll();
