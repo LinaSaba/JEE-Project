@@ -6,16 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="user")
+@Table(name="users")
 public class User {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "id")
-    private int id;
-    @Column(name = "username")
+    private long id;
+    @Column(name = "username", nullable = false)
     private String username;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "prenom", nullable = false)
     private String prenom;
@@ -30,12 +30,6 @@ public class User {
     private List<Trip> trips = new ArrayList<>();*/
 
     public User() {
-        this.username = "username";
-        this.password = "password";
-        this.prenom = "prenom";
-        this.email = "email";
-        this.dream_destination = "dream_destination";
-        this.admin = true;
     }
 
     public User(String username, String password, String prenom, String email, String dream_destination, boolean admin) {
@@ -61,7 +55,7 @@ public class User {
     }
 
     // --------------- Setters -------------- //
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
     public void setUsername(String username) {
@@ -82,8 +76,9 @@ public class User {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+
     // --------------- Getters -------------- //
-    public int getId() {
+    public long getId() {
         return id;
     }
     public String getPrenom() {
