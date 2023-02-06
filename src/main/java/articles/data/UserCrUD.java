@@ -8,5 +8,5 @@ import java.util.List;
 
 
 @Repository
-public interface UserCrUD extends CrudRepository<User, Long>{
+public interface UserCrUD extends CrudRepository<User, Long> {
 }

@@ -39,7 +39,14 @@ public class LoginController {
     public String connect(@ModelAttribute User newLogin) {
 
         allUsers = userDAO.findAll();
+        userDAO.findById(newLogin.getId());
+
+        if (newLogin.getEmail() == ) {
+
+        }
+
         allUsers.forEach((user) -> {
+
             System.out.println("***************user");
             System.out.println(user);
         });
