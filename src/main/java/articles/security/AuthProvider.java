@@ -31,8 +31,10 @@ import org.springframework.stereotype.Component;
                 userAttempts = attemptsRepository.findAttemptsByUsername(username);
         if (userAttempts.isPresent()) {
             Attempts attempts = userAttempts.get();
-            attempts.setAttempts(0); attemptsRepository.save(attempts);
+            attempts.setAttempts(0);
+            attemptsRepository.save(attempts);
         }
+        return authentication;
     }
     private void processFailedAttempts(String username, User user) {
         Optional<Attempts>

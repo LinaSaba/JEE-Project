@@ -2,18 +2,27 @@ package articles.controllers;
 
 import articles.models.Trip;
 import articles.models.User;
+import articles.security.SecurityUserDetailsService;
 import articles.services.TripService;
 import articles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.LockedException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -45,7 +54,8 @@ public class LoginController {
     public void addUser(@RequestParam Map<String, String> body) {
         User user = new User(); user.setUsername(body.get("username"));
         user.setPassword(passwordEncoder.encode(body.get("password")));
-        user.setAccountNonLocked(true); userDetailsManager.createUser(user);
+        user.setAccountNonLocked(true);
+        userDetailsManager.createUser(user);
     }
     private String getErrorMessage(HttpServletRequest request, String key) {
         Exception exception = (Exception) request.getSession().getAttribute(key);
