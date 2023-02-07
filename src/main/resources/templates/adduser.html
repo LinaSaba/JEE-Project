@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<p>User Page</p>
+
+<div class="center">
+
+  <h3>Add or update a user</h3>
+
+  <form action="#" th:action="@{/adduser}" method="post" th:object="${user}">
+    <div class="inputbox">
+      <input type="text" th:field="*{username}" /><br/>
+      <span>username:</span>
+    </div>
+
+    <div class="inputbox">
+      <input type="text" th:field="*{password}" /><br/>
+      <span>password:</span>
+    </div>
+
+    <div class="inputbox">
+      <input type="text" th:field="*{prenom}" /><br/>
+      <span>prenom:</span>
+    </div>
+
+    <div class="inputbox">
+      <input type="text" th:field="*{email}" /><br/>
+      <span>email:</span>
+    </div>
+
+    <div class="inputbox">
+      <input type="text" th:field="*{dream_destination}" /><br/>
+      <span>dream_destination:</span>
+    </div>
+
+    <div class="inputbox">
+      <input type="text" th:field="*{admin}" /><br/>
+      <span>admin:</span>
+    </div>
+
+
+    <button type="submit">Register user</button>
+
+    <input type="hidden" th:field="*{id}" />
+
+  </form>
+</div>
+</body>
+</html>

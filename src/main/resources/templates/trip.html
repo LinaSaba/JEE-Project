@@ -7,10 +7,7 @@
 
 </head>
 
-
 <a th:href="@{/addtrip}" class = "linkBtnAdmin">Add a trip?</span></a>
-
-<a th:href="@{/addtrip}" class = "linkBtnAdmin">Add a user?</span></a>
 
 <div class="table-wrapper">
     <table class="fl-table">
@@ -32,7 +29,7 @@
         </tr>
         <tr th:each="trip : ${trips}">
             <td><span th:text="${trip.CityA}"> CityA </span></td>
-            <td><span th:text="${trip.CityA}"> CityA </span></td>
+            <td><span th:text="${trip.CityB}"> CityB </span></td>
             <td><span th:text="${trip.time}"> Time </span></td>
 
             <td>
@@ -40,7 +37,7 @@
             </td>
 
             <td>
-                <a th:href="@{/updateTrip/{id}(id=${trip.id})}" class="btn btn-info">Update</a>
+                <a th:href="@{/updatetrip/{id}(id=${trip.id})}" class="btn btn-info">Update</a>
             </td>
 
         </tr>

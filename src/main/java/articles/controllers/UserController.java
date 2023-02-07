@@ -23,13 +23,14 @@ public class UserController {
         return "adduser";
     }
     @PostMapping("/adduser")
-    public String submitUser(@ModelAttribute("user") User user) {
+    public String submitUser(@ModelAttribute("user") User user, Model model) {
         System.out.println("euuuh"+user.toString());
         userService.save(user);
         System.out.println(user);
-        return "user_added";
+        model.addAttribute("users",userService.findAll());
+        return "redirect:/users";
     }
-    @RequestMapping(value = "/delete/{id}")
+    @RequestMapping(value = "/deleteuser/{id}")
     private String deleteUser(@PathVariable(name = "id") int id){
         System.out.println("id : "+id);
         userService.delete(userService.findById((long)(id)).get());
@@ -40,7 +41,7 @@ public class UserController {
     public String updateForm(@PathVariable("id") int id, Model model) {
         User user = userService.findById((long)(id)).get();
         model.addAttribute("user", user);
-        return "addUser";
+        return "adduser";
     }
 
 }

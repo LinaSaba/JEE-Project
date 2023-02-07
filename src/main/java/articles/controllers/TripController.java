@@ -24,11 +24,12 @@ public class TripController {
         return "addtrip";
     }
     @PostMapping("/addtrip")
-    public String submitTrip(@ModelAttribute("trip") Trip trip) {
+    public String submitTrip(@ModelAttribute("trip") Trip trip, Model model) {
         System.out.println("euuuh"+trip.toString());
         tripService.save(trip);
         System.out.println(trip);
-        return "trip_added";
+        model.addAttribute("trips",tripService.findAll());
+        return "redirect:/trips";
     }
     @RequestMapping(value = "/delete/{id}")
     private String deleteTrip(@PathVariable(name = "id") int id){
@@ -41,7 +42,7 @@ public class TripController {
     public String updateForm(@PathVariable("id") int id, Model model) {
         Trip trip = tripService.findById((long)(id)).get();
         model.addAttribute("trip", trip);
-        return "addEvent";
+        return "addtrip";
     }
 
 }
