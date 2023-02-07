@@ -19,8 +19,17 @@ public class Trip {
     @Column(name = "time", nullable = false)
     private String time;
 
-/*    @ManyToMany(mappedBy = "trips")
-    private List<User> users = new ArrayList<User>();*/
+    @ManyToMany(mappedBy = "trips")
+    private List<User> users = new ArrayList<User>();
+
+    public List<User> getUsers() {
+        return users;
+    }
+    public void addUser(User user)
+    {
+        this.users.add(user);
+        user.getTrips().add(this);
+    }
 
     // --------------- Constructors -------------- //
     public Trip() {
