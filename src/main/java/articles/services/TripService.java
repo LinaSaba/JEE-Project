@@ -1,7 +1,7 @@
 package articles.services;
 
 import articles.models.Trip;
-import articles.data.TripCrUD;
+import articles.repository.TripCrUD;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

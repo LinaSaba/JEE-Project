@@ -1,13 +1,17 @@
 package articles.models;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
@@ -25,6 +29,8 @@ public class User {
     private String dream_destination;
     @Column(name = "admin", nullable = false)
     private boolean admin;
+    @Column(name = "account_non_locked")
+    private boolean accountNonLocked;
 /*
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Trip> trips = new ArrayList<>();*/
@@ -32,13 +38,14 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin) {
+    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin, boolean accountNonLocked) {
         this.username = username;
         this.password = password;
         this.prenom = prenom;
         this.email = email;
         this.dream_destination = dream_destination;
         this.admin = admin;
+        this.accountNonLocked = accountNonLocked;
     }
 
     // -------------- To String -------------- //
@@ -76,6 +83,9 @@ public class User {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+    public void setAccountNonLocked(boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
 
     // --------------- Getters -------------- //
     public long getId() {
@@ -87,6 +97,17 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
     public String getPassword() {
         return password;
     }
@@ -99,6 +120,18 @@ public class User {
     public boolean isAdmin() {
         return admin;
     }
+    public boolean isAccountNonLocked() {
+        return accountNonLocked;
+    }
 
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
 }
 
