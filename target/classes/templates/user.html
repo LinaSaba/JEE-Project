@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns=http://www.w3.org/1999/xhtml
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User page</title>
+
+</head>
+
+<a th:href="@{/adduser}" class = "linkBtnAdmin">Add a user?</span></a>
+
+<div class="table-wrapper">
+  <table class="fl-table">
+    <thead>
+    <tr>
+      <th> username </th>
+      <th> prenom </th>
+      <th> email </th>
+      <th> dream_destination </th>
+      <th> admin </th>
+      <th> Delete</th>
+      <th> Update</th>
+      <th> List of trips </th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${users.empty}">
+      <td colspan="2"> No users for the moment </td>
+    </tr>
+    <tr th:each="user : ${users}">
+      <td><span th:text="${user.username}"> username </span></td>
+      <td><span th:text="${user.prenom}"> prenom </span></td>
+      <td><span th:text="${user.email}"> email </span></td>
+      <td><span th:text="${user.dream_destination}"> dream_destination </span></td>
+      <td><span th:text="${user.admin}"> admin </span></td>
+
+
+      <td>
+        <a th:href="@{deleteuser/__${user.id}__}" class="btn btn-danger">Delete</a>
+      </td>
+
+      <td>
+        <a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-info">Update</a>
+      </td>
+
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
