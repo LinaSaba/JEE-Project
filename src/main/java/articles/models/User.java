@@ -36,6 +36,10 @@ public class User implements UserDetails {
     private List<Trip> trips = new ArrayList<>();*/
 
     public User() {
+        this.prenom = "prenom";
+        this.email = "email";
+        this.dream_destination = "dream_destination";
+        this.admin = false;
     }
 
     public User(String username, String password, String prenom, String email, String dream_destination, boolean admin, boolean accountNonLocked) {
