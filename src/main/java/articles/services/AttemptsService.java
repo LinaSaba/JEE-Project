@@ -23,12 +23,16 @@ public class AttemptsService {
         repository.save(attempts);
     }
 
-    public Optional<Attempts> findById(Long id) {
+    /*public Optional<Attempts> findById(Long id) {
         return repository.findById(id);
-    }
+    }*/
 
     public void delete(Attempts attempts) {
         repository.delete(attempts);
+    }
+
+    public Optional<Attempts> findAttemptsByUsername(String username) {
+        return repository.findAttemptsByUsername(username);
     }
 
 }

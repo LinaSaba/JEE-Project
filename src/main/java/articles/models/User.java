@@ -12,11 +12,13 @@ import java.util.List;
 @Entity
 @Table(name="users")
 public class User implements UserDetails {
+    /*
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "id")
-    private long id;
+    private long id;*/
+    @Id
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
@@ -66,9 +68,9 @@ public class User implements UserDetails {
     }
 
     // --------------- Setters -------------- //
-    public void setId(long id) {
+    /*public void setId(long id) {
         this.id = id;
-    }
+    }*/
     public void setUsername(String username) {
         this.username = username;
     }
@@ -92,12 +94,13 @@ public class User implements UserDetails {
     }
 
     // --------------- Getters -------------- //
-    public long getId() {
+    /*public long getId() {
         return id;
-    }
+    }*/
     public String getPrenom() {
         return prenom;
     }
+    @Override
     public String getUsername() {
         return username;
     }
@@ -112,6 +115,7 @@ public class User implements UserDetails {
         return null;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -124,6 +128,7 @@ public class User implements UserDetails {
     public boolean isAdmin() {
         return admin;
     }
+    @Override
     public boolean isAccountNonLocked() {
         return accountNonLocked;
     }
@@ -136,6 +141,13 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return false;
+    }
+
+    public void setAccountNonLocked(Boolean accountNonLocked) {
+        this.accountNonLocked = accountNonLocked;
+    }
+    public boolean getAccountNonLocked() {
+        return accountNonLocked;
     }
 }
 

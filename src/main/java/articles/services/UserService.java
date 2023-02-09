@@ -24,12 +24,17 @@ public class UserService {
         repository.save(user);
     }
 
-    public Optional<User> findById(Long id) {
+    /*public Optional<User> findById(Long id) {
         return repository.findById(id);
-    }
+    }*/
 
     public void delete(User user) {
         repository.delete(user);
     }
+
+    public Optional<User> findUserByUsername(String username) {
+        return repository.findUserByUsername(username);
+    }
+
 
 }
