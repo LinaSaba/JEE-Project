@@ -9,13 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -32,7 +31,28 @@ public class LoginController {
     private PasswordEncoder passwordEncoder;
 
     @GetMapping("/")
-    public String index() {
+    public String index(Model model) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        String username;
+
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        if (username == "anonymousUser") {
+            username = "login";
+        }
+        model.addAttribute("username", username);
+        return "index";
+    }
+    @GetMapping("/{username}")
+    public String indexLogged(@PathVariable String username, Model model) {
+        System.out.println("____username____");
+        System.out.println(username);
+        model.addAttribute("username", username);
         return "index";
     }
     @GetMapping("/login")
@@ -42,8 +62,10 @@ public class LoginController {
         );
         return "login";
     }
+
     @GetMapping("/register")
     public String register() {
+        System.out.println("____username2____");
         return "register";
     }
     @PostMapping(
@@ -51,12 +73,14 @@ public class LoginController {
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
             MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
     )
-    public void addUser(@RequestParam Map<String, String> body) {
+    public String addUser(@RequestParam Map<String, String> body, Model model) {
+        System.out.println("____username2____");
+        System.out.println(body.get("username"));
         User user = new User();
         user.setUsername(body.get("username"));
         user.setPassword(passwordEncoder.encode(body.get("password")));
-        user.setAccountNonLocked(true);
         userDetailsManager.createUser(user);
+        return "redirect:/"+body.get("username");
     }
     private String getErrorMessage(HttpServletRequest request, String key) {
         Exception exception = (Exception) request.getSession().getAttribute(key);

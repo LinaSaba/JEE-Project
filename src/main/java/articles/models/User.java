@@ -31,8 +31,6 @@ public class User implements UserDetails {
     private String dream_destination;
     @Column(name = "admin", nullable = false)
     private boolean admin;
-    @Column(name = "account_non_locked")
-    private boolean accountNonLocked;
 /*
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Trip> trips = new ArrayList<>();*/
@@ -44,14 +42,13 @@ public class User implements UserDetails {
         this.admin = false;
     }
 
-    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin, boolean accountNonLocked) {
+    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin ) {
         this.username = username;
         this.password = password;
         this.prenom = prenom;
         this.email = email;
         this.dream_destination = dream_destination;
         this.admin = admin;
-        this.accountNonLocked = accountNonLocked;
     }
 
     // -------------- To String -------------- //
@@ -89,9 +86,6 @@ public class User implements UserDetails {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-    public void setAccountNonLocked(boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
 
     // --------------- Getters -------------- //
     /*public long getId() {
@@ -107,6 +101,11 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
         return false;
     }
 
@@ -128,10 +127,6 @@ public class User implements UserDetails {
     public boolean isAdmin() {
         return admin;
     }
-    @Override
-    public boolean isAccountNonLocked() {
-        return accountNonLocked;
-    }
 
     @Override
     public boolean isCredentialsNonExpired() {
@@ -143,11 +138,5 @@ public class User implements UserDetails {
         return false;
     }
 
-    public void setAccountNonLocked(Boolean accountNonLocked) {
-        this.accountNonLocked = accountNonLocked;
-    }
-    public boolean getAccountNonLocked() {
-        return accountNonLocked;
-    }
 }
 
