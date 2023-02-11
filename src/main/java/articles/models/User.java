@@ -25,9 +25,18 @@ public class User {
     private String dream_destination;
     @Column(name = "admin", nullable = false)
     private boolean admin;
-/*
+
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private List<Trip> trips = new ArrayList<>();*/
+    private List<Trip> trips = new ArrayList<>();
+
+    public List<Trip> getTrips() {
+        return trips;
+    }
+    public void addTrip(Trip trip)
+    {
+        this.trips.add(trip);
+        trip.getUsers().add(this);
+    }
 
     public User() {
     }
