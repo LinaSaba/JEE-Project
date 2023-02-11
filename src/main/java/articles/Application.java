@@ -13,5 +13,4 @@ public class Application {
         SpringApplication.run(Application.class, args);
         //Trip trip1 = new Trip(123,"Agadir", "Casablanca", "9h");
     }
-
 }

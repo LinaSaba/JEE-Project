@@ -1,18 +1,24 @@
 package articles.models;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
 @Table(name="users")
-public class User {
+public class User implements UserDetails {
+    /*
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name="increment", strategy = "increment")
     @Column(name = "id")
-    private long id;
+    private long id;*/
+    @Id
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
@@ -39,9 +45,13 @@ public class User {
     }
 
     public User() {
+        this.prenom = "prenom";
+        this.email = "email";
+        this.dream_destination = "dream_destination";
+        this.admin = false;
     }
 
-    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin) {
+    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin ) {
         this.username = username;
         this.password = password;
         this.prenom = prenom;
@@ -64,9 +74,9 @@ public class User {
     }
 
     // --------------- Setters -------------- //
-    public void setId(long id) {
+    /*public void setId(long id) {
         this.id = id;
-    }
+    }*/
     public void setUsername(String username) {
         this.username = username;
     }
@@ -87,15 +97,33 @@ public class User {
     }
 
     // --------------- Getters -------------- //
-    public long getId() {
+    /*public long getId() {
         return id;
-    }
+    }*/
     public String getPrenom() {
         return prenom;
     }
+    @Override
     public String getUsername() {
         return username;
     }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
+    }
+
+    @Override
     public String getPassword() {
         return password;
     }
@@ -107,6 +135,16 @@ public class User {
     }
     public boolean isAdmin() {
         return admin;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
     }
 
 }
