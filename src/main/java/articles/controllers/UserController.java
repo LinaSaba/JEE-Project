@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import articles.models.User;
-
 @Controller
 public class UserController {
     @Autowired
@@ -36,11 +35,11 @@ public class UserController {
         userService.delete(userService.findById((long)(id)).get());
         return "redirect:/users";
     }
-
     @GetMapping("/updateUser/{id}")
     public String updateForm(@PathVariable("id") int id, Model model) {
         User user = userService.findById((long)(id)).get();
         model.addAttribute("user", user);
         return "adduser";
     }
+
 }
