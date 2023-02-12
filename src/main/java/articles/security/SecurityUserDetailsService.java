@@ -1,5 +1,6 @@
 package articles.security;
 
+import articles.models.MyUserDetails;
 import articles.models.User;
 import articles.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +19,12 @@ public class SecurityUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException {
         User user = userRepository.findUserByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not present"));
-        return user;
+        //MyUserDetails myUserDetails = new MyUserDetails(user);
+        return new MyUserDetails(user);
     }
 
-    public void createUser(UserDetails user) {
-        userRepository.save((User) user);
+    public void createUser(User user) {
+        userRepository.save(user);
     }
 
     public void findUserByEmail(String email) {

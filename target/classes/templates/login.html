@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -42,7 +42,7 @@
     </div>
     <div th:if="${param.logout}">You have been logged out.</div>
 
-    <form action="/login" method="post">
+    <form th:action="@{/login}" method="post">
         <div class="form-group">
             <label for="exampleInputUsername"> User Name : </label>
             <input type="text" name="username" class="form-control" id="exampleInputUsername" aria-describedby="usernameHelp" placeholder="Enter username" required>

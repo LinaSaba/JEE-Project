@@ -2,38 +2,39 @@ package articles.models;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name="users")
-public class User implements UserDetails {
-    /*
-    @Id
-    @GeneratedValue(generator = "increment")
-    @GenericGenerator(name="increment", strategy = "increment")
-    @Column(name = "id")
-    private long id;*/
+public class User {
     @Id
     @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "prenom", nullable = false)
+    @Column(name = "prenom")
     private String prenom;
     @Column(name = "email", nullable = false, unique=true)
     private String email;
-    @Column(name = "dream_destination", nullable = false)
+    @Column(name = "dream_destination")
     private String dream_destination;
-    @Column(name = "admin", nullable = false)
-    private boolean admin;
+    @Column(name = "enabled")
+    private boolean enabled;
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private List<Trip> trips = new ArrayList<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(name = "username"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private List<Role> roles = new ArrayList<>();
 
     public List<Trip> getTrips() {
         return trips;
@@ -48,16 +49,16 @@ public class User implements UserDetails {
         this.prenom = "prenom";
         this.email = "email";
         this.dream_destination = "dream_destination";
-        this.admin = false;
+        this.enabled = true;
     }
 
-    public User(String username, String password, String prenom, String email, String dream_destination, boolean admin ) {
+    public User(String username, String password, String prenom, String email, String dream_destination, boolean enabled) {
         this.username = username;
         this.password = password;
         this.prenom = prenom;
         this.email = email;
         this.dream_destination = dream_destination;
-        this.admin = admin;
+        this.enabled = enabled;
     }
 
     // -------------- To String -------------- //
@@ -69,7 +70,7 @@ public class User implements UserDetails {
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", dream_destination='" + dream_destination + '\'' +
-                ", admin='" + admin + '\'' +
+                ", enabled='" + enabled + '\'' +
                 '}';
     }
 
@@ -92,8 +93,8 @@ public class User implements UserDetails {
     public void setDream_destination(String dream_destination) {
         this.dream_destination = dream_destination;
     }
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 
     // --------------- Getters -------------- //
@@ -103,49 +104,31 @@ public class User implements UserDetails {
     public String getPrenom() {
         return prenom;
     }
-    @Override
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getPassword() {
-        return password;
-    }
     public String getEmail() {
         return email;
     }
     public String getDream_destination() {
         return dream_destination;
     }
-    public boolean isAdmin() {
-        return admin;
+
+    public String getUsername() {
+        return username;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+    public String getPassword() {
+        return password;
     }
 
-    @Override
     public boolean isEnabled() {
-        return false;
+        return enabled;
     }
 
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
 }
 

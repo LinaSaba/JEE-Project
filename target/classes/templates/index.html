@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">">
 <head>
     <meta charset="UTF-8">
     <title>Tropik Airlines</title>
@@ -33,7 +33,7 @@
                     <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
                         <li>
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24" fill="white"><use xlink:href="#people-circle"/></svg>
-                            <a href="#" th:text="${username}" th:classappend="${username == login}? 'disabled'" th:onclick="window.location.href='/login'" class="nav-link text-white"></a>
+                            <a href="#" th:text="${username}" th:classappend="${username == login}? 'disabled'" th:onclick="window.location.href='/login'" class="nav-link text-white" style="padding: 0;"></a>
                         </li>
                     </ul>
                 </div>

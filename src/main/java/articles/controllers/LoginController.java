@@ -1,5 +1,6 @@
 package articles.controllers;
 
+import articles.models.MyUserDetails;
 import articles.models.Trip;
 import articles.models.User;
 import articles.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.LockedException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,10 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.swing.*;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 
 @Controller
@@ -49,7 +48,11 @@ public class LoginController {
 
         if (username == "anonymousUser") {
             username = "login";
-        }
+        }/* else{
+            System.out.println(userRepository.findUserByUsername(username).get().getRoles().get(0).getName());
+            System.out.println(userRepository.findUserByUsername(username).get().getUsername());
+        }*/
+
         model.addAttribute("username", username);
         return "index";
     }
@@ -62,6 +65,7 @@ public class LoginController {
     }
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpSession session) {
+        System.out.println("___________");
         session.setAttribute(
                 "error", getErrorMessage(request, "SPRING_SECURITY_LAST_EXCEPTION")
         );
@@ -73,13 +77,14 @@ public class LoginController {
         System.out.println("____username2____");
         return "register";
     }
+
     @PostMapping(
             value = "/register",
             consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE, produces = {
             MediaType.APPLICATION_ATOM_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }
     )
     public String addUser(@RequestParam Map<String, String> body, Model model) {
-        System.out.println("__________");
+        System.out.println("uuuuuuuuuuuuuu");
         System.out.println(update);
         if (update) {
             if (userRepository.findUserByEmail(body.get("email")).isEmpty()) {
@@ -103,6 +108,7 @@ public class LoginController {
             if (body.get("dream_destination") != null) {
                 user.setDream_destination(body.get("dream_destination"));
             }
+            //MyUserDetails myUserDetails = new MyUserDetails(user);
             userDetailsManager.createUser(user);
             return "redirect:/"+body.get("username");
         }
