@@ -82,7 +82,9 @@ public class LoginController {
         System.out.println("__________");
         System.out.println(update);
         if (update) {
-            userRepository.delete(userRepository.findUserByEmail(body.get("email")).orElseThrow());
+            if (userRepository.findUserByEmail(body.get("email")).isEmpty()) {
+                userRepository.delete(userRepository.findUserByEmail(body.get("email")).orElseThrow());
+            }
         }
         if (!userRepository.findUserByEmail(body.get("email")).isEmpty()) {
             model.addAttribute("popup", "You seem to be already have an account with this email, do you want to update your informations ?");
