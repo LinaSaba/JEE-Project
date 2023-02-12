@@ -18,6 +18,10 @@ public class Trip {
     private String cityB;
     @Column(name = "time", nullable = false)
     private String time;
+    @Column(name = "numberParticipants", nullable = false)
+    private int numberParticipants;
+    @Column(name = "maxParticipants", nullable = false)
+    private int maxParticipants;
 
     @ManyToMany(mappedBy = "trips")
     private List<User> users = new ArrayList<User>();
@@ -36,10 +40,28 @@ public class Trip {
     }
 
 
-    public Trip(String cityA, String cityB, String time) {
+    public int getNumberParticipants() {
+        return numberParticipants;
+    }
+
+    public void setNumberParticipants(int numberParticipants) {
+        this.numberParticipants = numberParticipants;
+    }
+
+    public int getMaxParticipants() {
+        return maxParticipants;
+    }
+
+    public void setMaxParticipants(int maxParticipants) {
+        this.maxParticipants = maxParticipants;
+    }
+
+    public Trip(String cityA, String cityB, String time, int maxParticipants) {
         this.cityA = cityA;
         this.cityB = cityB;
         this.time = time;
+        this.numberParticipants = 0;
+        this.maxParticipants = maxParticipants;
         //this.users = new ArrayList<>();
     }
 
@@ -51,6 +73,8 @@ public class Trip {
                 ", cityA='" + cityA + '\'' +
                 ", cityB='" + cityB + '\'' +
                 ", time='" + time + '\'' +
+                ", numberParticipants='" + numberParticipants + '\'' +
+                ", maxParticipants='" + maxParticipants + '\'' +
                 '}';
     }
     // --------------- Setters -------------- //

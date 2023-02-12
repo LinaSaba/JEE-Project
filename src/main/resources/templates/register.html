@@ -63,6 +63,14 @@
       <button type="submit" class="registerbtn">Register</button>
     </div>
 
+    <p th:text="${popup}"></p>
+    <div th:if="${update}">
+      <form action="/register/update" method="post">
+        <button th:type="submit">yes</button>
+      </form>
+      <button th:type="reset">no</button>
+    </div>
+
   </form>
 </body>
 </html>
