@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import articles.models.User;
-
 @Controller
 public class UserController {
     @Autowired
@@ -30,17 +29,17 @@ public class UserController {
         model.addAttribute("users",userService.findAll());
         return "redirect:/users";
     }
-    @RequestMapping(value = "/deleteuser/{id}")
-    private String deleteUser(@PathVariable(name = "id") int id){
-        System.out.println("id : "+id);
-        userService.delete(userService.findById((long)(id)).get());
+    @RequestMapping(value = "/deleteuser/{username}")
+    private String deleteUser(@PathVariable(name = "username") String username){
+        System.out.println("username : "+username);
+        userService.delete(userService.findByUsername((String)(username)));
         return "redirect:/users";
     }
-
-    @GetMapping("/updateUser/{id}")
-    public String updateForm(@PathVariable("id") int id, Model model) {
-        User user = userService.findById((long)(id)).get();
+    @GetMapping("/updateuser/{username}")
+    public String updateForm(@PathVariable("username") String username, Model model) {
+        User user = userService.findByUsername((String)(username));
         model.addAttribute("user", user);
         return "adduser";
     }
+
 }
