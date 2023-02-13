@@ -19,7 +19,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/register**", "/looktrip**", "/booktrip" , "/", "/register/update", "/searchtrip", "/searchtrip2").permitAll()
+                .authorizeRequests().antMatchers("/register**", "/looktrip/**", "/booktrip" , "/", "/register/update", "/searchtrip", "/searchtrip2").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()

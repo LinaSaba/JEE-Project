@@ -77,7 +77,7 @@ public class TripController {
         trips.add(trip);
         model.addAttribute("trip", trip);
         model.addAttribute("trips", trips);
-        return "booktrip";
+        return "adduser";
     }
 
     @GetMapping("/booktrip")
@@ -91,6 +91,7 @@ public class TripController {
 
     @PostMapping("/booktrip")
     public String submitFormParticipant(@ModelAttribute("user") User user) {
+        System.out.println("euuuh"+user.toString());
         userService.save(user);
         return "success_add_participant";
     }

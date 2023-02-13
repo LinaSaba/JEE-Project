@@ -37,11 +37,11 @@
 
 
       <td>
-        <a th:href="@{deleteuser/__${user.id}__}" class="btn btn-danger">Delete</a>
+        <a th:href="@{deleteuser/__${user.username}__}" class="btn btn-danger">Delete</a>
       </td>
 
       <td>
-        <a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/updateuser/{username}(username=${user.username})}" class="btn btn-info">Update</a>
       </td>
 
     </tr>

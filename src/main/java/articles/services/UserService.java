@@ -1,5 +1,6 @@
 package articles.services;
 
+import articles.models.Trip;
 import articles.models.User;
 import articles.repository.UserCrUD;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,10 @@ public class UserService {
 
     public void delete(User user) {
         repository.delete(user);
+    }
+
+    public User findByUsername(String username) {
+        return repository.findByUsername(username);
     }
 
 }
