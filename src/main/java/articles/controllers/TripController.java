@@ -92,7 +92,7 @@ public class TripController {
             username = principal.toString();
         }
         if (username == "anonymousUser") {
-            return "adduser";
+            return "redirect:/adduser";
         }
         else {
             System.out.println("username"+username);

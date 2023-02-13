@@ -30,7 +30,7 @@
     <tr th:each="user : ${users}">
       <td><span th:text="${user.username}"> username </span></td>
       <td><span th:text="${user.prenom}"> prenom </span></td>
-      <td><span th:text="${user.admin}"> admin </span></td>
+      <td><span th:text="${user.enabled}"> admin </span></td>
       <td th:each="trip : ${user.trips}">
         <span th:text="${trip.cityA}"> Trip Informations </span>
       <span th:text="${trip.cityB}"> Trip Informations </span></td>

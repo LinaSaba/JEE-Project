@@ -23,7 +23,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers( "/trips", "/trip_added", "/user", "/user_added", "/adduser", "/addtrip")
+                .antMatchers( "/trips", "/trip_added", "/user", "/user_added", "/adduser", "/addtrip", "/register**", "/looktrip/**", "/booktrip" , "/", "/register/update", "/searchtrip", "/searchtrip2")
                     //.hasAuthority("ADMIN")
                     .permitAll()
                 .antMatchers("/register**", "/")
@@ -31,9 +31,6 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest()
                     .authenticated()
                 .and()
-                .authorizeRequests().antMatchers("/register**", "/looktrip/**", "/booktrip" , "/", "/register/update", "/searchtrip", "/searchtrip2").permitAll()
-                    .anyRequest().authenticated()
-                    .and()
                 .formLogin()
                 .loginPage("/login")
                     .permitAll()
