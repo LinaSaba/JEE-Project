@@ -26,7 +26,13 @@ public class TripService {
     public Optional<Trip> findById(Long id) {
         return repository.findById(id);
     }
+    public List<Trip> findByCityA(String CityA) {
+        return repository.findByCityA(CityA);
+    }
 
+    public List<Trip> findByCityAAndCityB(String CityA, String CityB) {
+        return repository.findByCityAAndCityB(CityA, CityB);
+    }
     public void delete(Trip trip) {
         repository.delete(trip);
     }

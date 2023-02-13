@@ -68,14 +68,12 @@ public class Trip {
     // -------------- To String -------------- //
     @Override
     public String toString() {
-        return "Trip{" +
-                "tripNb=" + id +
-                ", cityA='" + cityA + '\'' +
-                ", cityB='" + cityB + '\'' +
-                ", time='" + time + '\'' +
-                ", numberParticipants='" + numberParticipants + '\'' +
-                ", maxParticipants='" + maxParticipants + '\'' +
-                '}';
+        return "trip Number = " + id +
+                " City A = '" + cityA + '\'' +
+                "      City B = '" + cityB + '\'' +
+                "      Time = '" + time + '\'' +
+                "      Number of Participants = '" + numberParticipants + '\'' +
+                "      Max of Participants = '" + maxParticipants + '\'';
     }
     // --------------- Setters -------------- //
     public void setId(long id) {
