@@ -41,11 +41,19 @@
       <span>admin:</span>
     </div>
 
+    <div class="inputbox">
+    <select id="trips"  th:field="*{trips}">
+      <div th:each ="trip : ${trips}">
+        <option th:text="${trip}" >--Please choose an option--</option>
+        <span>trips:</span>
+      </div>
+    </select>
+    </div>
+
+    <input type="hidden" name="username" th:field="*{username}" />
+
 
     <button type="submit">Register user</button>
-
-    <input type="hidden" th:field="*{id}" />
-
   </form>
 </div>
 </body>

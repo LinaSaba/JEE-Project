@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns=http://www.w3.org/1999/xhtml
       xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -15,12 +15,11 @@
     <tr>
       <th> username </th>
       <th> prenom </th>
-      <th> email </th>
-      <th> dream_destination </th>
       <th> admin </th>
+      <th> Trip Informations </th>
       <th> Delete</th>
       <th> Update</th>
-      <th> List of trips </th>
+
 
     </tr>
     </thead>
@@ -31,20 +30,19 @@
     <tr th:each="user : ${users}">
       <td><span th:text="${user.username}"> username </span></td>
       <td><span th:text="${user.prenom}"> prenom </span></td>
-      <td><span th:text="${user.email}"> email </span></td>
-      <td><span th:text="${user.dream_destination}"> dream_destination </span></td>
       <td><span th:text="${user.admin}"> admin </span></td>
-
-
+      <td th:each="trip : ${user.trips}">
+        <span th:text="${trip.cityA}"> Trip Informations </span>
+      <span th:text="${trip.cityB}"> Trip Informations </span></td>
       <td>
-        <a th:href="@{deleteuser/__${user.id}__}" class="btn btn-danger">Delete</a>
+        <a th:href="@{deleteuser/__${user.username}__}" class="btn btn-danger">Delete</a>
       </td>
 
       <td>
-        <a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-info">Update</a>
+        <a th:href="@{/updateuser/{username}(username=${user.username})}" class="btn btn-info">Update</a>
       </td>
-
     </tr>
+    </td>
 
     </tbody>
   </table>

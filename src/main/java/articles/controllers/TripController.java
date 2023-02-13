@@ -6,6 +6,8 @@ import articles.services.TripService;
 import articles.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,8 @@ import static org.apache.logging.log4j.util.Strings.isEmpty;
 public class TripController {
     @Autowired
     TripService tripService;
+
+    @Autowired
     UserService userService;
 
     @GetMapping("/trips")
@@ -77,25 +81,30 @@ public class TripController {
         trips.add(trip);
         model.addAttribute("trip", trip);
         model.addAttribute("trips", trips);
-        return "adduser";
-    }
-
-    @GetMapping("/booktrip")
-    public String booktrip(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        List<Trip> trips = tripService.findAll();
-        model.addAttribute("trips", trips);
-        return "booktrip";
-    }
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-    @PostMapping("/booktrip")
-    public String submitFormParticipant(@ModelAttribute("user") User user) {
-        System.out.println("euuuh"+user.toString());
-        userService.save(user);
-        return "success_add_participant";
-    }
+        String username;
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        if (username == "anonymousUser") {
+            return "adduser";
+        }
+        else {
+            System.out.println("username"+username);
+            System.out.println(userService.findByUsername(username));
+            user = userService.findByUsername((username));
+            user.addTrip(trip);
+            System.out.println("username"+user);
+            userService.save(user);
+            return "redirect:/users";
+        }
 
+    }
 
     @PostMapping("/addtrip")
     public String submitTrip(@ModelAttribute("trip") Trip trip, Model model) {
